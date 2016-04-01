@@ -1,0 +1,23 @@
+Current Minecraft version = 1.7.10-10.13.3.1428-1.7.10
+Current Minecraft version = 1.7.10-10.13.3.1428-1.7.10
+Current Java version = 1.7.0_79 (Oracle Corporation 24.79-b02)
+Current Java version = 1.7.0_79 (Oracle Corporation 24.79-b02)
+version = 1.7.10-0.0.1b2
+version = 1.7.10-0.0.1b2
+10.13.3.1428
+10.13.3.1428
+SBM-RedCow
+SBM-RedCow
+****************************
+ Powered By MCP:             
+ http://modcoderpack.com/    
+ Searge, ProfMobius, Fesh0r, 
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+useAnt has been deprecated and is scheduled to be removed in Gradle 3.0. The Ant-Based Scala compiler is deprecated, please see https://docs.gradle.org/current/userguide/scala_plugin.html.
+:wrapper
+
+BUILD SUCCESSFUL
+
+Total time: 53.817 secs
