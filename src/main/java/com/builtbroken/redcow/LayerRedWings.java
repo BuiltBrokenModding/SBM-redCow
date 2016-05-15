@@ -1,8 +1,16 @@
 package com.builtbroken.redcow;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -13,8 +21,9 @@ import java.util.Map;
 
 /**
  * Created by Dark on 8/3/2015.
+ * Updated by Kolatra on 3/30/2016.
  */
-public class RenderWings
+public class LayerRedWings
 {
     public static ResourceLocation wingTexture = new ResourceLocation(RedCow.DOMAIN, "textures/models/wings.png");
 
@@ -61,40 +70,40 @@ public class RenderWings
     }
 
     @SubscribeEvent
-    public void onPostRenderPlayer(RenderPlayerEvent.Specials.Post event)
-    {
-        if (shouldRenderForPlayer(event.entityPlayer))
-        {
+    public void onPostPlayerRender(RenderPlayerEvent.Post event) {
+        if (shouldRenderForPlayer(event.entityPlayer)) {
             GL11.glPushMatrix();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glTranslatef(0.0F, -0.3F, 0.15F);
-            Tessellator tessellator = Tessellator.instance;
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(wingTexture);
-            float wingAngle = 0; //TODO have wings move around, ensure per play flap angle. Maybe tie to player movement?
+            GL11.glTranslatef(0.0F, 1.0F, 0.20F);
+            GL11.glRotatef(event.entityPlayer.renderYawOffset, event.entityPlayer.renderOffsetX, event.entityPlayer.renderOffsetY, event.entityPlayer.renderOffsetZ);
+            Minecraft.getMinecraft().renderEngine.bindTexture(wingTexture);
+            float wingAngle = 0;
 
+            Tessellator instance = Tessellator.getInstance();
+            WorldRenderer t = instance.getWorldRenderer();
 
-            //Render wing A
+            // Wing A
             GL11.glPushMatrix();
             GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-wingAngle, 0.0F, 1.0F, 0.0F);
-            tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-            tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
-            tessellator.addVertexWithUV(1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
-            tessellator.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
-            tessellator.draw();
+            t.begin(7, DefaultVertexFormats.POSITION_TEX);
+            t.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).endVertex();
+            t.pos(0.0D, 1.0D, 0.0D).tex(0.0D, 1.0D).endVertex();
+            t.pos(1.0D, 1.0D, 0.0D).tex(1.0D, 1.0D).endVertex();
+            t.pos(1.0D, 0.0D, 0.0D).tex(1.0D, 0.0D).endVertex();
+            instance.draw();
             GL11.glPopMatrix();
 
-            //Render wing B, inverted texture of wing A
+            // Wing B
             GL11.glPushMatrix();
             GL11.glRotatef(wingAngle, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
-            tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-            tessellator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
-            tessellator.addVertexWithUV(-1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
-            tessellator.addVertexWithUV(-1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
-            tessellator.draw();
+            t.begin(7, DefaultVertexFormats.POSITION_TEX);
+            t.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).endVertex();
+            t.pos(0.0D, 1.0D, 0.0D).tex(0.0D, 1.0D).endVertex();
+            t.pos(-1.0D, 1.0D, 0.0D).tex(1.0D, 1.0D).endVertex();
+            t.pos(-1.0D, 0.0D, 0.0D).tex(1.0D, 0.0D).endVertex();
+            instance.draw();
             GL11.glPopMatrix();
 
             GL11.glPopMatrix();
