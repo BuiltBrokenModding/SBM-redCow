@@ -1,0 +1,4 @@
+item.redcow:can.name=Red Cow Dose
+item.redcow:can.empty.name=Leere Dose
+item.redcow:can.desc.name=Red Cow verleiht Flügel
+redcow:wings=Flügel
