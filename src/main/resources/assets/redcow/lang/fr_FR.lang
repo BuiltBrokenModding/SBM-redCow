@@ -1,0 +1,4 @@
+item.redcow:can.name=Canette de Red Cow
+item.redcow:can.empty.name=Canette vide
+item.redcow:can.desc.name=Red Cow donne des ailes
+redcow:wings=Ailes
